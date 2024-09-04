@@ -104,9 +104,20 @@ MDBSortedDictionary class >> openReadonly: aDatabaseName in: aPath [
 
 	^self open: aDatabaseName
 		in: aPath
-		flags: MDB_RDONLY
+		flags: (MDB_RDONLY| MDB_NOLOCK )
 		keyConverter: self defaultKeyConverter
 		valueConverter: self defaultValueConverter
+]
+
+{ #category : 'as yet unclassified' }
+MDBSortedDictionary class >> randomByteArrayOfSize: size [
+  "Create a ByteArray of the given size filled with random bytes"
+  | byteArray |
+  byteArray := ByteArray new: size.
+  1 to: size do: [ :index |
+    byteArray at: index put: (256 atRandom - 1)
+  ].
+  ^ byteArray
 ]
 
 { #category : 'adding' }

@@ -53,7 +53,7 @@ MDBEnvironment class >> open: aPath flags: aFlagsInt mode: aModeInt [
 { #category : 'instance creation' }
 MDBEnvironment class >> openReadonly: aPath [
 
-	^self open: aPath flags: MDB_RDONLY
+	^self open: aPath flags: (MDB_RDONLY | MDB_NOLOCK )
 ]
 
 { #category : 'primitives' }
@@ -86,7 +86,7 @@ MDBEnvironment class >> version [
 { #category : 'actions' }
 MDBEnvironment >> beginReadTransaction [
 
-	^MDBTransaction begin: self parent: nil flags: MDB_RDONLY
+	^MDBTransaction begin: self parent: nil flags: MDB_RDONLY 
 ]
 
 { #category : 'actions' }
