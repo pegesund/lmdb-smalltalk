@@ -14,5 +14,6 @@ Highlights:
 * A database can be accessed by multiple processes (Smalltalk images) simultaneously but not by multiple hosts
 * The driver includes a high level interface: MDBSortedDictionary
 
-# This is fork by Petter for updating FFI to Pharo 12
+### This is fork by Petter for updating FFI to Pharo 12
 * All tests passing in this version
+* Also included https://github.com/pharo-ide/ReadWriteLock as running with forks needs nolock setting in LMBD
