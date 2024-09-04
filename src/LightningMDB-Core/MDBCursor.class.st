@@ -8,7 +8,7 @@ Class {
 	#package : 'LightningMDB-Core'
 }
 
-{ #category : 'as yet unclassified' }
+{ #category : 'open' }
 MDBCursor class >> open: aMDBTransaction dbi: aMDBDbi [
 	
 	| instance result |
@@ -21,11 +21,11 @@ MDBCursor class >> open: aMDBTransaction dbi: aMDBDbi [
 	^instance
 ]
 
-{ #category : 'as yet unclassified' }
+{ #category : 'ffi-calls' }
 MDBCursor class >> primOpen: aMDBTransaction dbi: aMDBDbi cursor: aMDBCursor [
 	<primitive: #primitiveNativeCall module: #NativeBoostPlugin error: errorCode>
 	
-	^ self nbCall: #( int mdb_cursor_open ( MDBTransaction aMDBTransaction, MDB_dbi aMDBDbi, MDBCursor *aMDBCursor ) ) 
+	^ self ffiCall: #( int mdb_cursor_open ( MDBTransaction aMDBTransaction, MDB_dbi aMDBDbi, MDBCursor *aMDBCursor ) ) 
 ]
 
 { #category : 'as yet unclassified' }
