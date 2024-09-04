@@ -1,22 +1,22 @@
 Class {
-	#name : #MDBEnvironmentTest,
-	#superclass : #MDBTest,
-	#category : #'LightningMDB-Tests-Core'
+	#name : 'MDBEnvironmentTest',
+	#superclass : 'MDBTest',
+	#category : 'LightningMDB-Tests-Core',
+	#package : 'LightningMDB-Tests-Core'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 MDBEnvironmentTest >> testCreateAndCloseEnvironment [
 
 	| env |
-	
 	env := MDBEnvironment create.
-	self assert: env handle notNil.
-	
+	self assert: env getHandle notNil.
+
 	env close.
 	self assert: env getHandle isNull
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MDBEnvironmentTest >> testGetMaxkeysize [
 
 	| env keysize |
@@ -27,20 +27,19 @@ MDBEnvironmentTest >> testGetMaxkeysize [
 	env close
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MDBEnvironmentTest >> testOpenAndCloseEnvironment [
 
 	| env |
-	
 	env := MDBEnvironment create.
-	self assert: env handle notNil.
-	
+	self assert: env getHandle notNil.
+
 	env open: self path flags: 0 mode: 8r664.
-	
+
 	env close
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MDBEnvironmentTest >> testStat [
 
 	| env stats |
@@ -52,7 +51,7 @@ MDBEnvironmentTest >> testStat [
 	env close
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MDBEnvironmentTest >> testVersion [
 
 	self assert: MDBEnvironment version isString

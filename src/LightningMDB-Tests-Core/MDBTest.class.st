@@ -1,10 +1,11 @@
 Class {
-	#name : #MDBTest,
-	#superclass : #TestCase,
-	#category : #'LightningMDB-Tests-Core'
+	#name : 'MDBTest',
+	#superclass : 'TestCase',
+	#category : 'LightningMDB-Tests-Core',
+	#package : 'LightningMDB-Tests-Core'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDBTest >> path [
 
 	| ref |

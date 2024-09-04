@@ -2,8 +2,8 @@
 A MDBTypes is a pool dictionary with varius MDB related constants.
 "
 Class {
-	#name : #MDBTypes,
-	#superclass : #SharedPool,
+	#name : 'MDBTypes',
+	#superclass : 'SharedPool',
 	#classVars : [
 		'MDB_CREATE',
 		'MDB_DUPFIXED',
@@ -36,10 +36,11 @@ Class {
 		'MDB_SET_RANGE',
 		'MDB_dbi'
 	],
-	#category : #'LightningMDB-Core'
+	#category : 'LightningMDB-Core',
+	#package : 'LightningMDB-Core'
 }
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 MDBTypes class >> initialize [
 	"self initialize"
 	
@@ -82,7 +83,7 @@ MDBTypes class >> initialize [
 
 ]
 
-{ #category : #'class initialization' }
+{ #category : 'class initialization' }
 MDBTypes class >> initializeValueHolders [
 
 	MDB_INT_HOLDER := FFIExternalValueHolder ofType: 'int'.

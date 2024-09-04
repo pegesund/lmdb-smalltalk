@@ -6,24 +6,25 @@ LightningMDB only stores binary data so we need to convert/serialize an object t
 To serialize an object to binary data I send it the message #asByteArray. No derialization is done so a ByteArray is always the result. In most cases this default behaviour will not fit your needs and you will have to use a subclass of me.
 "
 Class {
-	#name : #MDBObjectConverter,
-	#superclass : #Object,
-	#category : #'LightningMDB-Dictionary'
+	#name : 'MDBObjectConverter',
+	#superclass : 'Object',
+	#category : 'LightningMDB-Dictionary',
+	#package : 'LightningMDB-Dictionary'
 }
 
-{ #category : #converting }
+{ #category : 'converting' }
 MDBObjectConverter >> deserialize: aByteArray [
 
 	^aByteArray
 ]
 
-{ #category : #internal }
+{ #category : 'internal' }
 MDBObjectConverter >> getBuffer: minByteSize [
 
 	^ByteArray new: minByteSize
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 MDBObjectConverter >> serialize: anObject [
 	"Convert <anObject> to some ByteArray like object."
 	

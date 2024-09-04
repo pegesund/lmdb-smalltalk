@@ -1,1 +1,1 @@
-Package { #name : #'LightningMDB-Tests-Dictionary' }
+Package { #name : 'LightningMDB-Tests-Dictionary' }

@@ -1,21 +1,22 @@
 Class {
-	#name : #MDBExternalReadStream,
-	#superclass : #Object,
+	#name : 'MDBExternalReadStream',
+	#superclass : 'Object',
 	#instVars : [
 		'address',
 		'position',
 		'limit'
 	],
-	#category : #'LightningMDB-Core'
+	#category : 'LightningMDB-Core',
+	#package : 'LightningMDB-Core'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MDBExternalReadStream >> atEnd [
 
 	^position >= limit - 1
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MDBExternalReadStream >> next [
 	
 	^ self atEnd 
@@ -25,7 +26,7 @@ MDBExternalReadStream >> next [
 			address byteAt: position ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MDBExternalReadStream >> on: anExternalAddress limit: integer [
 
 	address := anExternalAddress.

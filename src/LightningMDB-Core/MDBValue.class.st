@@ -2,16 +2,17 @@
 A MDBValue is a structure class for the MDB_value C structure. This structure is used for passing keys and data in and out of the database.
 "
 Class {
-	#name : #MDBValue,
-	#superclass : #FFIExternalStructure,
+	#name : 'MDBValue',
+	#superclass : 'FFIExternalStructure',
 	#classVars : [
 		'OFFSET_MVDATA',
 		'OFFSET_MVSIZE'
 	],
-	#category : #'LightningMDB-Core'
+	#category : 'LightningMDB-Core',
+	#package : 'LightningMDB-Core'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MDBValue class >> allocateFor: aStringOrByteArray [
 
 	| buf |
@@ -25,7 +26,7 @@ MDBValue class >> allocateFor: aStringOrByteArray [
 
 ]
 
-{ #category : #'fields description' }
+{ #category : 'fields description' }
 MDBValue class >> fieldsDesc [
 	^#(
 		size_t mvSize ;
@@ -33,13 +34,13 @@ MDBValue class >> fieldsDesc [
 	)
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 MDBValue >> copyDataTo: aTargetObject [
 
 	LibC memCopy: self mvData to: aTargetObject size: self mvSize
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 MDBValue >> dataAsByteArray [
 
 	| bytes |
@@ -49,7 +50,7 @@ MDBValue >> dataAsByteArray [
 	^bytes
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 MDBValue >> dataAsByteString [
 
 	| bytes |
@@ -59,31 +60,31 @@ MDBValue >> dataAsByteString [
 	^bytes
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 MDBValue >> freeData [
 
 	self mvData free
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 MDBValue >> mvData [
 	"This method was automatically generated"
 	^ExternalData fromHandle: (handle pointerAt: 9) type: ExternalType void asPointerType
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 MDBValue >> mvData: anObject [
 	"This method was automatically generated"
 	handle pointerAt: 9 put: anObject getHandle.
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 MDBValue >> mvSize [
 	"This method was automatically generated"
 	^handle unsignedLongLongAt: 1
 ]
 
-{ #category : #'accessing structure variables' }
+{ #category : 'accessing structure variables' }
 MDBValue >> mvSize: anObject [
 	"This method was automatically generated"
 	handle unsignedLongLongAt: 1 put: anObject

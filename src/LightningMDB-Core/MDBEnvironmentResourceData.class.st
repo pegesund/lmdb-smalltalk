@@ -2,16 +2,17 @@
 A MDBEnvironmentResourceData object is used to close a MDBEnvironment when it is still open and no longer referenced. Optionally other object can be added to a collection of resources. They will receive a #cleanup message just before the environment is closed.
 "
 Class {
-	#name : #MDBEnvironmentResourceData,
-	#superclass : #Object,
+	#name : 'MDBEnvironmentResourceData',
+	#superclass : 'Object',
 	#instVars : [
 		'handle',
 		'otherResources'
 	],
-	#category : #'LightningMDB-Core'
+	#category : 'LightningMDB-Core',
+	#package : 'LightningMDB-Core'
 }
 
-{ #category : #actions }
+{ #category : 'actions' }
 MDBEnvironmentResourceData >> addResource: aResource [ 
 	"Add <aResource> to the receivers collection of other resources. Just before the environment
 	is cleaned up this resource will receive the #cleanup message."
@@ -19,7 +20,7 @@ MDBEnvironmentResourceData >> addResource: aResource [
 	^self otherResources add: aResource 
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 MDBEnvironmentResourceData >> cleanup [
 	"Cleanup any resources and close the environment."
 	
@@ -33,13 +34,13 @@ MDBEnvironmentResourceData >> cleanup [
 			handle beNull ]
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 MDBEnvironmentResourceData >> initWithHandle: aHandle [ 
 
 	handle := aHandle 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDBEnvironmentResourceData >> otherResources [
 
 	^otherResources ifNil: [ otherResources := OrderedCollection new ]

@@ -1,22 +1,23 @@
 Class {
-	#name : #MDBSortedDictionaryPerformaceTests,
-	#superclass : #Object,
-	#category : #'LightningMDB-Tests-Dictionary'
+	#name : 'MDBSortedDictionaryPerformaceTests',
+	#superclass : 'Object',
+	#category : 'LightningMDB-Tests-Dictionary',
+	#package : 'LightningMDB-Tests-Dictionary'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MDBSortedDictionaryPerformaceTests >> doDeserializeData: anArray using: aConverter [
 
 	^anArray collect: [ :each | aConverter deserialize: each ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MDBSortedDictionaryPerformaceTests >> doSerializeData: anArray using: aConverter [
 
 	^anArray collect: [ :each | aConverter serialize: each ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MDBSortedDictionaryPerformaceTests >> newTestDictionary: anId [
 
 	^Dictionary new 
@@ -30,7 +31,7 @@ MDBSortedDictionaryPerformaceTests >> newTestDictionary: anId [
 	"self new newTestDictionary: 100"
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MDBSortedDictionaryPerformaceTests >> testSerialization [
 	"self new testSerialization"
 

@@ -2,12 +2,13 @@
 A MDBCursor provides access to MDB_cursor related functionality.
 "
 Class {
-	#name : #MDBCursor,
-	#superclass : #MDBHandle,
-	#category : #'LightningMDB-Core'
+	#name : 'MDBCursor',
+	#superclass : 'MDBHandle',
+	#category : 'LightningMDB-Core',
+	#package : 'LightningMDB-Core'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MDBCursor class >> open: aMDBTransaction dbi: aMDBDbi [
 	
 	| instance result |
@@ -20,14 +21,14 @@ MDBCursor class >> open: aMDBTransaction dbi: aMDBDbi [
 	^instance
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MDBCursor class >> primOpen: aMDBTransaction dbi: aMDBDbi cursor: aMDBCursor [
 	<primitive: #primitiveNativeCall module: #NativeBoostPlugin error: errorCode>
 	
 	^ self nbCall: #( int mdb_cursor_open ( MDBTransaction aMDBTransaction, MDB_dbi aMDBDbi, MDBCursor *aMDBCursor ) ) 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MDBCursor >> associations [
 
 	| list |
@@ -39,13 +40,13 @@ MDBCursor >> associations [
 	^list
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MDBCursor >> close [
 
 	self primClose 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MDBCursor >> getAll: aTwoArgConverterBlock [
 
 	| list |
@@ -56,7 +57,7 @@ MDBCursor >> getAll: aTwoArgConverterBlock [
 	^list
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MDBCursor >> keysAndDataDo: aTwoArgBlock [
 
 	| key data result |
@@ -74,7 +75,7 @@ MDBCursor >> keysAndDataDo: aTwoArgBlock [
 		ifFalse: [ self mdbError: result ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MDBCursor >> next [
 
 	| key data result |
@@ -91,19 +92,19 @@ MDBCursor >> next [
 	self mdbError: result
 ]
 
-{ #category : #primitives }
+{ #category : 'primitives' }
 MDBCursor >> primClose [
 	
 	^ self ffiCall: #( void mdb_cursor_close ( MDBCursor self ) )
 ]
 
-{ #category : #primitives }
+{ #category : 'primitives' }
 MDBCursor >> primGet: aKey data: aValue operation: anOp [
 	
 	^ self ffiCall: #( int mdb_cursor_get ( MDBCursor self, MDBValue *aKey, MDBValue *aValue, int anOp ) )
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MDBCursor >> set: aKey [
 
 	| key data result |
@@ -120,7 +121,7 @@ MDBCursor >> set: aKey [
 	^data
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : 'as yet unclassified' }
 MDBCursor >> setRange: aKey [
 
 	| key keyBuf data result |

@@ -2,15 +2,16 @@
 A MDBEnvironemnt provides access to MDB_env related functionality.
 "
 Class {
-	#name : #MDBEnvironment,
-	#superclass : #MDBHandle,
+	#name : 'MDBEnvironment',
+	#superclass : 'MDBHandle',
 	#instVars : [
 		'resourceData'
 	],
-	#category : #'LightningMDB-Core'
+	#category : 'LightningMDB-Core',
+	#package : 'LightningMDB-Core'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MDBEnvironment class >> create [
 
 	| instance result |
@@ -24,53 +25,53 @@ MDBEnvironment class >> create [
 	^instance
 ]
 
-{ #category : #cleanup }
+{ #category : 'cleanup' }
 MDBEnvironment class >> finalizeResourceData: aResourceData [
 
 	aResourceData cleanup
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MDBEnvironment class >> open: aPath [
 
 	^self open: aPath flags: 0
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MDBEnvironment class >> open: aPath flags: aFlagsInt [
 
 	^self open: aPath flags: aFlagsInt mode: 8r664
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MDBEnvironment class >> open: aPath flags: aFlagsInt mode: aModeInt [
 
 	^self create open: aPath flags: aFlagsInt mode: aModeInt
 
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MDBEnvironment class >> openReadonly: aPath [
 
 	^self open: aPath flags: MDB_RDONLY
 ]
 
-{ #category : #primitives }
+{ #category : 'primitives' }
 MDBEnvironment class >> primClose: aHandle [
 	^ self ffiCall: #( int mdb_env_close ( void *aHandle ) )
 ]
 
-{ #category : #primitives }
+{ #category : 'primitives' }
 MDBEnvironment class >> primCreate: aMDBEnvironment [
 	^ self ffiCall: #( int mdb_env_create ( MDBEnvironment *aMDBEnvironment ) )
 ]
 
-{ #category : #primitives }
+{ #category : 'primitives' }
 MDBEnvironment class >> primMDBVersion: major minor: minor patch: patch [
 	^ self ffiCall: #( String mdb_version (MDB_INT_HOLDER major, MDB_INT_HOLDER minor, MDB_INT_HOLDER patch ) ) 
 ]
 
-{ #category : #public }
+{ #category : 'public' }
 MDBEnvironment class >> version [
 
 	| major minor patch |
@@ -82,60 +83,60 @@ MDBEnvironment class >> version [
 	^self primMDBVersion: major minor: minor patch: patch
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 MDBEnvironment >> beginReadTransaction [
 
 	^MDBTransaction begin: self parent: nil flags: MDB_RDONLY
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 MDBEnvironment >> beginTransaction [
 
 	^MDBTransaction begin: self parent: nil flags: 0
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 MDBEnvironment >> close [
 
 	self primClose.
-	self handle beNull
+	self getHandle beNull
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDBEnvironment >> flags [
 
 	| buf |
 	
 	buf := ByteArray new: 4.
 	self primGetFlags: buf.
-	^buf nbUInt32AtOffset: 0
+	^buf unsignedLongAt: 1
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MDBEnvironment >> isReadonly [
 
 	^(self flags bitAnd: MDB_RDONLY) ~= 0
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDBEnvironment >> maxkeysize [
 
 	^self primGetMaxkeysize
 ]
 
-{ #category : #opening }
+{ #category : 'opening' }
 MDBEnvironment >> open: aPath [
 
 	self open: aPath flags: 0
 ]
 
-{ #category : #opening }
+{ #category : 'opening' }
 MDBEnvironment >> open: aPath flags: aFlagsInt [
 
 	self open: aPath flags: aFlagsInt mode: 8r664
 ]
 
-{ #category : #opening }
+{ #category : 'opening' }
 MDBEnvironment >> open: aPath flags: aFlagsInt mode: aModeInt [
 
 	| result |
@@ -145,7 +146,7 @@ MDBEnvironment >> open: aPath flags: aFlagsInt mode: aModeInt [
 		ifFalse: [ self mdbError: result ].
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 MDBEnvironment >> openDatabase: aNameOrNil [
 	"Answer a handle to a database/table names <aNameOrNil> in this database. If <aNameOrNil> is nil the default
 	database will be opened."
@@ -153,7 +154,7 @@ MDBEnvironment >> openDatabase: aNameOrNil [
 	^ self openDatabase: aNameOrNil flags: MDB_CREATE
 ]
 
-{ #category : #actions }
+{ #category : 'actions' }
 MDBEnvironment >> openDatabase: aNameOrNil flags: anInteger [
 	"Answer a handle to a database/table names <aNameOrNil> in this database. If <aNameOrNil> is nil the default
 	database will be opened."
@@ -166,61 +167,61 @@ MDBEnvironment >> openDatabase: aNameOrNil flags: anInteger [
 	^ dbi
 ]
 
-{ #category : #primitives }
+{ #category : 'primitives' }
 MDBEnvironment >> primClose [
 	
 	^ self ffiCall: #( int mdb_env_close ( MDBEnvironment self ) )
 ]
 
-{ #category : #primitives }
+{ #category : 'primitives' }
 MDBEnvironment >> primDbiClose: aMDBDbi [
 	
 	^ self ffiCall: #( void mdb_dbi_close ( MDBEnvironment self, MDB_dbi aMDBDbi ) )
 ]
 
-{ #category : #primitives }
+{ #category : 'primitives' }
 MDBEnvironment >> primGetFlags: aBuffer [
 	
 	^ self ffiCall: #( int mdb_env_get_flags( MDBEnvironment self, uint* aBuffer ) )
 ]
 
-{ #category : #primitives }
+{ #category : 'primitives' }
 MDBEnvironment >> primGetMaxkeysize [
 	
 	^ self ffiCall: #( int mdb_env_get_maxkeysize ( MDBEnvironment self ) )
 ]
 
-{ #category : #primitives }
+{ #category : 'primitives' }
 MDBEnvironment >> primOpen: aPath flags: aFlagsInt mode: aModeInt [
 	
 	^ self ffiCall: #( int mdb_env_open ( MDBEnvironment self, String aPath, uint aFlagsInt, uint aModeInt) )
 ]
 
-{ #category : #primitives }
+{ #category : 'primitives' }
 MDBEnvironment >> primSetMapsize: anInteger [
 	
 	^ self ffiCall: #( int mdb_env_set_mapsize ( MDBEnvironment self, size_t anInteger ) )
 ]
 
-{ #category : #primitives }
+{ #category : 'primitives' }
 MDBEnvironment >> primSetMaxdbs: anInteger [
 	
 	^ self ffiCall: #( int mdb_env_set_maxdbs ( MDBEnvironment self, uint anInteger ) )
 ]
 
-{ #category : #primitives }
+{ #category : 'primitives' }
 MDBEnvironment >> primStat: aMDBStat [
 	
 	^ self ffiCall: #( int mdb_env_stat ( MDBEnvironment self, MDBStat *aMDBStat ) )
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 MDBEnvironment >> resourceData [
 
 	^resourceData ifNil: [ resourceData := MDBEnvironmentResourceData new initWithHandle: handle ]
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 MDBEnvironment >> setMapsize: anInteger [
 	"Set the size of the memory map to use for this environment."
 
@@ -231,7 +232,7 @@ MDBEnvironment >> setMapsize: anInteger [
 		ifFalse: [ self mdbError: result ]
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 MDBEnvironment >> setMaxdbs: anInteger [
 
 	| result |
@@ -241,7 +242,7 @@ MDBEnvironment >> setMaxdbs: anInteger [
 		ifFalse: [ self mdbError: result ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDBEnvironment >> stat [
 	"Return statistics about this MDB environment.
 	Warning: calling this method before the environment is opened can cause a crash."

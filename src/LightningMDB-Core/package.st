@@ -1,1 +1,1 @@
-Package { #name : #'LightningMDB-Core' }
+Package { #name : 'LightningMDB-Core' }

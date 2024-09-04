@@ -13,8 +13,8 @@ Instance Variables
 
 "
 Class {
-	#name : #MDBSortedDictionary,
-	#superclass : #Object,
+	#name : 'MDBSortedDictionary',
+	#superclass : 'Object',
 	#instVars : [
 		'environment',
 		'dbi',
@@ -25,22 +25,23 @@ Class {
 	#pools : [
 		'MDBTypes'
 	],
-	#category : #'LightningMDB-Dictionary'
+	#category : 'LightningMDB-Dictionary',
+	#package : 'LightningMDB-Dictionary'
 }
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 MDBSortedDictionary class >> defaultKeyConverter [
 
 	^MDBByteStringConverter new
 ]
 
-{ #category : #defaults }
+{ #category : 'defaults' }
 MDBSortedDictionary class >> defaultValueConverter [
 
 	^MDBFuelConverter new
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MDBSortedDictionary class >> open: aDatabaseName environment: anEnvironment [
 
 	^self open: aDatabaseName 
@@ -49,7 +50,7 @@ MDBSortedDictionary class >> open: aDatabaseName environment: anEnvironment [
 		valueConverter: self defaultValueConverter
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MDBSortedDictionary class >> open: aDatabaseName environment: anEnvironment keyConverter: aKeyConverter valueConverter: aValueConverter [
 
 	^self basicNew initializeEnvironment: anEnvironment 
@@ -58,7 +59,7 @@ MDBSortedDictionary class >> open: aDatabaseName environment: anEnvironment keyC
 		valueConverter: aValueConverter
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MDBSortedDictionary class >> open: aDatabaseName in: aPath [
 
 	^self open: aDatabaseName
@@ -68,7 +69,7 @@ MDBSortedDictionary class >> open: aDatabaseName in: aPath [
 		valueConverter: self defaultValueConverter
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MDBSortedDictionary class >> open: aDatabaseName in: aPath flags: aFlagsInt keyConverter: aKeyConverter valueConverter: aValueConverter [
 
 	| ref |
@@ -88,7 +89,7 @@ MDBSortedDictionary class >> open: aDatabaseName in: aPath flags: aFlagsInt keyC
 		valueConverter: aValueConverter
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MDBSortedDictionary class >> open: aDatabaseName inFile: aPath [
 
 	^self open: aDatabaseName
@@ -98,7 +99,7 @@ MDBSortedDictionary class >> open: aDatabaseName inFile: aPath [
 		valueConverter: self defaultValueConverter
 ]
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 MDBSortedDictionary class >> openReadonly: aDatabaseName in: aPath [
 
 	^self open: aDatabaseName
@@ -108,14 +109,14 @@ MDBSortedDictionary class >> openReadonly: aDatabaseName in: aPath [
 		valueConverter: self defaultValueConverter
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 MDBSortedDictionary >> add: anAssociation [
 
 	self at: anAssociation key put: anAssociation value.
 	^anAssociation 
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 MDBSortedDictionary >> addAll: aKeyedCollection [
 
 	| writeTransaction |
@@ -133,7 +134,7 @@ MDBSortedDictionary >> addAll: aKeyedCollection [
 	^aKeyedCollection
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDBSortedDictionary >> associations [
 	"Answer a collection containing the receivers key value pairs."
 	
@@ -144,20 +145,20 @@ MDBSortedDictionary >> associations [
 	^coll
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 MDBSortedDictionary >> associationsDo: aBlock [
 	
 	self keysAndValuesDo: [ :key :value | aBlock value: key -> value ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDBSortedDictionary >> at: key [ 
 	"Answer the value associated with the key."
 
 	^ self at: key ifAbsent: [self errorKeyNotFound: key]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDBSortedDictionary >> at: key ifAbsent: aBlock [ 
 	"Answer the value associated with the key or, if key isn't found,
 	answer the result of evaluating aBlock."
@@ -170,7 +171,7 @@ MDBSortedDictionary >> at: key ifAbsent: aBlock [
 			ensure: [ self releaseReadTransaction: tx ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDBSortedDictionary >> at: key ifAbsentPut: aBlock [ 
 	"Return the value at the given key. 
 	If key is not included in the receiver store the result 
@@ -192,14 +193,14 @@ MDBSortedDictionary >> at: key ifAbsentPut: aBlock [
 	^value
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDBSortedDictionary >> at: key ifPresent: aBlock [
 	"Lookup the given key in the receiver. If it is present, answer the value of evaluating the given block with the value associated with the key. Otherwise, answer nil."
 
 	^aBlock value: (self at: key ifAbsent: [ ^nil ])
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDBSortedDictionary >> at: key ifPresent: oneArgBlock ifAbsent: absentBlock [
 	"Lookup the given key in the receiver. If it is present, answer the value of evaluating the oneArgBlock with the value associated with the key, otherwise answer the value of absentBlock."
 	
@@ -207,7 +208,7 @@ MDBSortedDictionary >> at: key ifPresent: oneArgBlock ifAbsent: absentBlock [
 	^absentBlock value
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDBSortedDictionary >> at: key put: anObject [ 
 	"Set the value at key to be anObject.  If key is not found, create a
 	new entry for key and set is value to anObject. Answer anObject."
@@ -219,7 +220,7 @@ MDBSortedDictionary >> at: key put: anObject [
 	writeTransaction commit
 ]
 
-{ #category : #removing }
+{ #category : 'removing' }
 MDBSortedDictionary >> empty [
 	"Remove all key-value pairs from this dictionary."
 
@@ -230,19 +231,19 @@ MDBSortedDictionary >> empty [
 	writeTransaction commit
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDBSortedDictionary >> environment [
 
 	^environment
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 MDBSortedDictionary >> getReadTransaction [
 
 	^environment beginReadTransaction
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 MDBSortedDictionary >> initializeEnvironment: anEnvironment databaseName: aStringOrNil keyConverter: aKeyConverter valueConverter: aValueConterter [
 
 	| transaction |
@@ -264,7 +265,7 @@ MDBSortedDictionary >> initializeEnvironment: anEnvironment databaseName: aStrin
 	valueConverter := aValueConterter
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MDBSortedDictionary >> isEmpty [
 	
 	| tx cursor |
@@ -278,13 +279,13 @@ MDBSortedDictionary >> isEmpty [
 	^true
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 MDBSortedDictionary >> isReadonly [
 
 	^environment isReadonly
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDBSortedDictionary >> keys [
 	"Answer a collection containing the receivers keys."
 	
@@ -295,7 +296,7 @@ MDBSortedDictionary >> keys [
 	^coll
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 MDBSortedDictionary >> keysAndValuesDo: aBlock [
 	"Evaluate aBlock for each of the receiver's values."
 	
@@ -313,7 +314,7 @@ MDBSortedDictionary >> keysAndValuesDo: aBlock [
 		self releaseReadTransaction: tx ]
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 MDBSortedDictionary >> keysDo: aBlock [
 	"Evaluate aBlock for each of the receiver's keys."
 	
@@ -329,7 +330,7 @@ MDBSortedDictionary >> keysDo: aBlock [
 		self releaseReadTransaction: tx ]
 ]
 
-{ #category : #'initialize-release' }
+{ #category : 'initialize-release' }
 MDBSortedDictionary >> release [
 
 	environment notNil
@@ -338,13 +339,13 @@ MDBSortedDictionary >> release [
 			environment := nil ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 MDBSortedDictionary >> releaseReadTransaction: aTransaction [
 
 	aTransaction abort
 ]
 
-{ #category : #removing }
+{ #category : 'removing' }
 MDBSortedDictionary >> removeKey: key [
 	"Remove key from the receiver.
 	If key is not in the receiver, notify an error."
@@ -352,7 +353,7 @@ MDBSortedDictionary >> removeKey: key [
 	^self removeKey: key ifAbsent: [ self errorKeyNotFound: key ]
 ]
 
-{ #category : #removing }
+{ #category : 'removing' }
 MDBSortedDictionary >> removeKey: key ifAbsent: aBlock [ 
 	"Remove key (and its associated value) from the receiver. If key is not in 
 	the receiver, answer the result of evaluating aBlock. Otherwise, answer 
@@ -373,7 +374,7 @@ MDBSortedDictionary >> removeKey: key ifAbsent: aBlock [
 
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDBSortedDictionary >> size [
 	
 	| tx cursor size |
@@ -387,7 +388,7 @@ MDBSortedDictionary >> size [
 	^size
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDBSortedDictionary >> values [
 	"Answer a collection containing the receivers keys."
 	
@@ -398,7 +399,7 @@ MDBSortedDictionary >> values [
 	^coll
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 MDBSortedDictionary >> valuesDo: aBlock [
 	"Evaluate aBlock for each of the receiver's values."
 	

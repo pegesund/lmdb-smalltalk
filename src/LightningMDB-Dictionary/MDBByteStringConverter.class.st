@@ -1,16 +1,17 @@
 Class {
-	#name : #MDBByteStringConverter,
-	#superclass : #MDBObjectConverter,
-	#category : #'LightningMDB-Dictionary'
+	#name : 'MDBByteStringConverter',
+	#superclass : 'MDBObjectConverter',
+	#category : 'LightningMDB-Dictionary',
+	#package : 'LightningMDB-Dictionary'
 }
 
-{ #category : #converting }
+{ #category : 'converting' }
 MDBByteStringConverter >> deserialize: aMDBValue [
 
 	^aMDBValue dataAsByteString
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 MDBByteStringConverter >> serialize: aByteString [
 	"Convert <anObject> to some ByteArray like object."
 	

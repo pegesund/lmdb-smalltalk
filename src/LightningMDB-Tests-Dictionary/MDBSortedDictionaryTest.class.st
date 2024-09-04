@@ -1,19 +1,20 @@
 Class {
-	#name : #MDBSortedDictionaryTest,
-	#superclass : #TestCase,
+	#name : 'MDBSortedDictionaryTest',
+	#superclass : 'TestCase',
 	#instVars : [
 		'dictionary'
 	],
-	#category : #'LightningMDB-Tests-Dictionary'
+	#category : 'LightningMDB-Tests-Dictionary',
+	#package : 'LightningMDB-Tests-Dictionary'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDBSortedDictionaryTest >> path [
 
 	^self class name asString
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 MDBSortedDictionaryTest >> tearDown [
 
 	dictionary notNil
@@ -22,7 +23,7 @@ MDBSortedDictionaryTest >> tearDown [
 			dictionary := nil ]
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MDBSortedDictionaryTest >> testAddAll [
 
 	dictionary := MDBSortedDictionary open: 'db1' in: self path.
@@ -38,7 +39,7 @@ MDBSortedDictionaryTest >> testAddAll [
 	self assert: dictionary size = 2.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MDBSortedDictionaryTest >> testAtIfAbsentPut [
 
 	dictionary := MDBSortedDictionary open: 'db1' in: self path.
@@ -54,7 +55,7 @@ MDBSortedDictionaryTest >> testAtIfAbsentPut [
 	self assert: (dictionary at: 'key-B') equals: 'X'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MDBSortedDictionaryTest >> testAtIfPresent [
 
 	| value |
@@ -67,7 +68,7 @@ MDBSortedDictionaryTest >> testAtIfPresent [
 	self assert: value equals: 'value-A'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MDBSortedDictionaryTest >> testAtPut [
 
 	| value |
@@ -82,28 +83,26 @@ MDBSortedDictionaryTest >> testAtPut [
 	self assert: (dictionary at: 'key-B') equals: value.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MDBSortedDictionaryTest >> testAtPutMany [
 
 	| value |
-	
 	dictionary := MDBSortedDictionary open: 'db1' in: self path.
 	dictionary empty.
-	
+
 	1 to: 500 do: [ :index |
-		value := Dictionary new 
-			at: 100 put: DateAndTime now ;
-			at: 101 put: 'Value-', index asString ;
-			at: 200 put: 27636.78 / index ;
-			at: 201 put: (1 / 3) ;
-			yourself.
-		dictionary at: 'key-', (index printStringPadded: 4) put: value ].
-	
-	self assert: dictionary size = 500.
-	self assert: dictionary keys last = 'key-0500'
+		value := Dictionary new
+			         at: 100 put: DateAndTime now;
+			         at: 101 put: 'Value-' , index asString;
+			         at: 200 put: 27636.78 / index;
+			         at: 201 put: 1 / 3;
+			         yourself.
+		dictionary at: 'key-' , (index printStringPadded: 4) put: value ].
+	self assert: dictionary size equals: 500.
+	self assert: dictionary keys last equals: 'key-0500'
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MDBSortedDictionaryTest >> testEmptyAndSize [
 
 	dictionary := MDBSortedDictionary open: 'db1' in: self path.
@@ -121,7 +120,7 @@ MDBSortedDictionaryTest >> testEmptyAndSize [
 	self assert: dictionary size = 0.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MDBSortedDictionaryTest >> testKeysAndValues [
 
 	dictionary := MDBSortedDictionary open: 'db1' in: self path.
@@ -134,7 +133,7 @@ MDBSortedDictionaryTest >> testKeysAndValues [
 	self assert: dictionary values asArray = #( 'value-A' 'value-B' ).
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MDBSortedDictionaryTest >> testReadonly [
 
 	| readDictionary |
@@ -159,7 +158,7 @@ MDBSortedDictionaryTest >> testReadonly [
 	self should: [ readDictionary at: 'key-A' put: 'newValue' ] raise: Error
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MDBSortedDictionaryTest >> testRemove [
 
 	dictionary := MDBSortedDictionary open: 'db1' in: self path.

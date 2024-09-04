@@ -6,31 +6,32 @@ Instance Variables
 
 "
 Class {
-	#name : #MDBEncodedStringConverter,
-	#superclass : #MDBObjectConverter,
+	#name : 'MDBEncodedStringConverter',
+	#superclass : 'MDBObjectConverter',
 	#instVars : [
 		'encoder'
 	],
-	#category : #'LightningMDB-Dictionary'
+	#category : 'LightningMDB-Dictionary',
+	#package : 'LightningMDB-Dictionary'
 }
 
-{ #category : #converting }
+{ #category : 'converting' }
 MDBEncodedStringConverter >> deserialize: aMDBValue [
 
 	^self encoder decodeBytes: aMDBValue dataAsByteArray
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDBEncodedStringConverter >> encoder [
 	^ encoder ifNil: [ encoder := ZnUTF8Encoder new ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDBEncodedStringConverter >> encoder: anObject [
 	encoder := anObject
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 MDBEncodedStringConverter >> serialize: aString [
 	"Convert <anObject> to some ByteArray like object."
 	

@@ -1,30 +1,31 @@
 Class {
-	#name : #MDBIntegerConverter,
-	#superclass : #MDBObjectConverter,
+	#name : 'MDBIntegerConverter',
+	#superclass : 'MDBObjectConverter',
 	#instVars : [
 		'minByteSize'
 	],
-	#category : #'LightningMDB-Dictionary'
+	#category : 'LightningMDB-Dictionary',
+	#package : 'LightningMDB-Dictionary'
 }
 
-{ #category : #converting }
+{ #category : 'converting' }
 MDBIntegerConverter >> deserialize: aMDBValue [
 
 	^aMDBValue dataAsByteArray asInteger
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDBIntegerConverter >> minByteSize [
 
 	^ minByteSize ifNil: [ minByteSize := 8 ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDBIntegerConverter >> minByteSize: anObject [
 	minByteSize := anObject
 ]
 
-{ #category : #converting }
+{ #category : 'converting' }
 MDBIntegerConverter >> serialize: anInteger [
 	"Convert <anObject> to some ByteArray like object."
 	

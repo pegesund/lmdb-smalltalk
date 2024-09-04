@@ -1,22 +1,23 @@
 Class {
-	#name : #MDBLibrary,
-	#superclass : #FFILibrary,
-	#category : #'LightningMDB-Core'
+	#name : 'MDBLibrary',
+	#superclass : 'FFILibrary',
+	#category : 'LightningMDB-Core',
+	#package : 'LightningMDB-Core'
 }
 
-{ #category : #'accessing platform' }
+{ #category : 'accessing platform' }
 MDBLibrary >> macModuleName [
 
 	^'liblmdb.dylib'
 ]
 
-{ #category : #'accessing platform' }
+{ #category : 'accessing platform' }
 MDBLibrary >> unixModuleName [
 
 	^'liblmdb.so'
 ]
 
-{ #category : #'accessing platform' }
+{ #category : 'accessing platform' }
 MDBLibrary >> win32ModuleName [
 
 	^'liblmdb.dll'

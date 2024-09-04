@@ -1,13 +1,14 @@
 Class {
-	#name : #MDBFunctionalTest,
-	#superclass : #MDBTest,
+	#name : 'MDBFunctionalTest',
+	#superclass : 'MDBTest',
 	#instVars : [
 		'env'
 	],
-	#category : #'LightningMDB-Tests-Core'
+	#category : 'LightningMDB-Tests-Core',
+	#package : 'LightningMDB-Tests-Core'
 }
 
-{ #category : #running }
+{ #category : 'running' }
 MDBFunctionalTest >> createEnvironment [
 
 	^ MDBEnvironment create
@@ -17,13 +18,13 @@ MDBFunctionalTest >> createEnvironment [
 			yourself
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 MDBFunctionalTest >> env [
 
 	^ env ifNil: [ env := self createEnvironment ]
 ]
 
-{ #category : #running }
+{ #category : 'running' }
 MDBFunctionalTest >> tearDown [
 
 	env notNil
@@ -35,7 +36,7 @@ MDBFunctionalTest >> tearDown [
 	
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MDBFunctionalTest >> test01Bulk [
 
 	| db1 tx data cursor |
@@ -66,7 +67,7 @@ MDBFunctionalTest >> test01Bulk [
 	tx abort.
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MDBFunctionalTest >> testKeyTooBig [
 
 	| db1 tx key |

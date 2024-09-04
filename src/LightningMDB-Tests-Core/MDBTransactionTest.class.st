@@ -1,27 +1,27 @@
 Class {
-	#name : #MDBTransactionTest,
-	#superclass : #MDBTest,
-	#category : #'LightningMDB-Tests-Core'
+	#name : 'MDBTransactionTest',
+	#superclass : 'MDBTest',
+	#category : 'LightningMDB-Tests-Core',
+	#package : 'LightningMDB-Tests-Core'
 }
 
-{ #category : #tests }
+{ #category : 'tests' }
 MDBTransactionTest >> testBeginTransaction [
 
 	| env tx |
-	
 	env := MDBEnvironment create.
-	self assert: env handle notNil.
-	
+	self assert: env getHandle notNil.
+
 	env open: self path.
-	
+
 	tx := env beginTransaction.
-	
+
 	tx abort.
 
 	env close
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MDBTransactionTest >> testCursor [
 
 	| env tx dbi cursor data |
@@ -40,7 +40,7 @@ MDBTransactionTest >> testCursor [
 	env close
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MDBTransactionTest >> testDelete [
 
 	| env tx dbi data |
@@ -68,7 +68,7 @@ MDBTransactionTest >> testDelete [
 	env close
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MDBTransactionTest >> testGet [
 
 	| env tx dbi data |
@@ -91,26 +91,24 @@ MDBTransactionTest >> testGet [
 	env close
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MDBTransactionTest >> testOpenDatabase [
 
 	| env tx dbi |
-	
 	env := MDBEnvironment create.
-	self assert: env handle notNil.
-	
+	self assert: env getHandle notNil.
+
 	env setMaxdbs: 8.
 	env open: self path.
-	
+
 	tx := env beginTransaction.
 	dbi := tx openDatabase: 'db1'.
-.	
 	tx abort.
 
 	env close
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MDBTransactionTest >> testPut [
 
 	| env tx dbi data |
@@ -133,7 +131,7 @@ MDBTransactionTest >> testPut [
 	env close
 ]
 
-{ #category : #tests }
+{ #category : 'tests' }
 MDBTransactionTest >> testStat [
 
 	| env tx dbi |
