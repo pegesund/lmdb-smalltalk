@@ -17,10 +17,10 @@ MDBSortedDictionaryTest >> path [
 { #category : 'running' }
 MDBSortedDictionaryTest >> tearDown [
 
-	dictionary notNil
-		ifTrue: [ 
-			dictionary release.
-			dictionary := nil ]
+	dictionary ifNil: [ ^ self ].
+	dictionary release.
+	dictionary := nil.
+	super tearDown 
 ]
 
 { #category : 'tests' }
@@ -28,15 +28,14 @@ MDBSortedDictionaryTest >> testAddAll [
 
 	dictionary := MDBSortedDictionary open: 'db1' in: self path.
 	dictionary empty.
-	
-	dictionary addAll: (Dictionary new 
-		at: 'key-A' put: 'value-A' ;
-		at: 'key-B' put: 'value-B' ;
-		yourself ).
 
-	self assert: (dictionary at: 'key-A') = 'value-A'.
-	self assert: (dictionary at: 'key-B') = 'value-B'.
-	self assert: dictionary size = 2.
+	dictionary addAll: (Dictionary new
+			 at: 'key-A' put: 'value-A';
+			 at: 'key-B' put: 'value-B';
+			 yourself).
+	self assert: (dictionary at: 'key-A') equals: 'value-A'.
+	self assert: (dictionary at: 'key-B') equals: 'value-B'.
+	self assert: dictionary size equals: 2
 ]
 
 { #category : 'tests' }
@@ -106,31 +105,32 @@ MDBSortedDictionaryTest >> testAtPutMany [
 MDBSortedDictionaryTest >> testEmptyAndSize [
 
 	dictionary := MDBSortedDictionary open: 'db1' in: self path.
-	
+
 	dictionary empty.
 	self assert: dictionary isEmpty.
-	self assert: dictionary size = 0.
-	
+	self assert: dictionary size equals: 0.
+
 	dictionary at: 'key-A' put: 'value-A'.
 	self deny: dictionary isEmpty.
-	self assert: dictionary size = 1.
-	
+	self assert: dictionary size equals: 1.
+
 	dictionary empty.
 	self assert: dictionary isEmpty.
-	self assert: dictionary size = 0.
+	self assert: dictionary size equals: 0
 ]
 
 { #category : 'tests' }
 MDBSortedDictionaryTest >> testKeysAndValues [
 
 	dictionary := MDBSortedDictionary open: 'db1' in: self path.
-	
+
 	dictionary empty.
 	dictionary at: 'key-A' put: 'value-A'.
 	dictionary at: 'key-B' put: 'value-B'.
-
-	self assert: dictionary keys asArray = #( 'key-A' 'key-B' ).
-	self assert: dictionary values asArray = #( 'value-A' 'value-B' ).
+	self assert: dictionary keys asArray equals: #( 'key-A' 'key-B' ).
+	self
+		assert: dictionary values asArray
+		equals: #( 'value-A' 'value-B' )
 ]
 
 { #category : 'tests' }
