@@ -104,7 +104,7 @@ MDBSortedDictionary class >> openReadonly: aDatabaseName in: aPath [
 
 	^self open: aDatabaseName
 		in: aPath
-		flags: MDB_RDONLY
+		flags: (MDB_RDONLY | MDB_NOTLS | MDB_NOLOCK )
 		keyConverter: self defaultKeyConverter
 		valueConverter: self defaultValueConverter
 ]

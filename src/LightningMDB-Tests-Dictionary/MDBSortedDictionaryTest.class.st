@@ -102,6 +102,23 @@ MDBSortedDictionaryTest >> testAtPutMany [
 ]
 
 { #category : 'tests' }
+MDBSortedDictionaryTest >> testConcurrency [
+
+| d |
+d := MDBSortedDictionary openReadonly: 'db1' in: '/tmp/dict'.
+[
+[(1 to: 100000) do: [ :i|
+	| val |
+	val := i asString.		
+	d at: val.
+	 ]] timeToRun inspect] fork.
+
+d release.
+d := nil
+
+]
+
+{ #category : 'tests' }
 MDBSortedDictionaryTest >> testEmptyAndSize [
 
 	dictionary := MDBSortedDictionary open: 'db1' in: self path.
