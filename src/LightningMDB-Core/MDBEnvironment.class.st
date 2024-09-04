@@ -86,7 +86,7 @@ MDBEnvironment class >> version [
 { #category : 'actions' }
 MDBEnvironment >> beginReadTransaction [
 
-	^MDBTransaction begin: self parent: nil flags: (MDB_RDONLY | MDB_NOLOCK )
+	^MDBTransaction begin: self parent: nil flags: MDB_RDONLY 
 ]
 
 { #category : 'actions' }
